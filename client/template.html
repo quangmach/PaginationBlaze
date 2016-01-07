@@ -4,27 +4,27 @@
             <ul class="pagination">
 
                 <li class="{{#if isInFirstPage}}disabled{{/if}}">
-                    <a href="#" class="previous-page" title="Previous page"> &lt; </a>
+                    <a href="{{#if isInFirstPage}}#{{else}}{{pathFor route=RouteName page=previousPage}}{{/if}}" class="previous-page" title="Previous page"> &lt; </a>
                 </li>
 
                 {{#if arePreviousPagesHidden}}
                     {{#with 1}}
-                        <li><a href="#" class="page-link" title="Go to page {{.}}"> {{.}} </a></li>
+                        <li><a href="{{pathFor route=RouteName page=.}}" class="page-link" title="Go to page {{.}}"> {{.}} </a></li>
                     {{/with}}
                     <li><a href="#" class="show-prev" title="Show previous pages"> ... </a></li>
                 {{/if}}
                 {{#each pagesToDisplay}}
-                    <li class="{{#if isActive}}active{{/if}}"><a href="#" class="page-link" title="page {{.}}">{{.}}</a></li>
+                    <li class="{{#if isActive}}active{{/if}}"><a href="{{pathFor route=RouteName page=.}}" class="page-link" title="page {{.}}">{{.}}</a></li>
                 {{/each}}
                 {{#if areNextPagesHidden}}
                     <li><a href="#" class="show-next" title="Show next pages"> ... </a></li>
                     {{#with lastPage}}
-                        <li><a href="#" class="page-link" title="Go to page {{.}}"> {{.}} </a></li>
+                        <li><a href="{{pathFor route=RouteName page=.}}" class="page-link" title="Go to page {{.}}"> {{.}} </a></li>
                     {{/with}}
                 {{/if}}
 
                 <li class="{{#if isInLastPage}}disabled{{/if}}">
-                    <a href="#" class="next-page" title="Next page"> &gt; </a>
+                    <a href="{{#if isInLastPage}}#{{else}}}{{pathFor route=RouteName page=nextPage}}{{/if}}" class="next-page" title="Next page"> &gt; </a>
                 </li>
             </ul>
         {{/if}}

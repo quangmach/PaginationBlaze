@@ -1,6 +1,6 @@
 Template.defaultBootstrapPaginator.created = function(){
     var self = this;
-
+    
     this.displayedPages = new ReactiveVar([]);
 
     if (!this.data.pagination) {
@@ -36,8 +36,17 @@ Template.defaultBootstrapPaginator.created = function(){
 };
 
 Template.defaultBootstrapPaginator.helpers({
+    RouteName: function () {
+        return Template.instance().data.pagination.routename(); //Use for pathFor helper which get Route Name in Settings
+    },
     hasPages: function () {
         return this.pagination && this.pagination.totalPages() > 1 && this.limit;
+    },
+    previousPage : function(){
+        return (Template.instance().data.pagination.currentPage() - 1);
+    },
+    nextPage : function(){
+        return (Template.instance().data.pagination.currentPage() + 1);
     },
     isActive : function(){
         return this.valueOf() == Template.instance().data.pagination.currentPage();
@@ -66,6 +75,15 @@ Template.defaultBootstrapPaginator.helpers({
 });
 
 Template.defaultBootstrapPaginator.events({
+    'click a': function(e, templateInstance){
+        var router = templateInstance.data.pagination.router();
+          if (!router) {
+            e.preventDefault(); //Stop redirect when not using Router
+          } else {
+            e.preventDefault();
+            Router.go(e.target.pathname);
+          }
+    },
     'click .page-link': function(e, templateInstance){
         templateInstance.data.pagination.currentPage(this.valueOf());
     },

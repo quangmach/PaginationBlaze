@@ -13,6 +13,7 @@ Package.onUse(function (api) {
         "kurounin:pagination@1.0.7"
     ]);
 
+    api.use("iron:router@1.0.0", ["client", "server"], { weak: true });
     api.use([
         "reactive-var",
         "reactive-dict"
